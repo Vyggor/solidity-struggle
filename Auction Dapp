@@ -1,0 +1,31 @@
+ 0.8.7;
+
+contract Auction{
+    uint public Hbid;
+    address payable public _ben;  //beneficiary address should be payable
+    uint public auctionEndTime;   // end time of the auction
+    address public _Hbidd;  // highest bidder
+
+    mapping(address => uint) pendingReturns;  //keep track of the refunds
+
+    event newHighBid(address bidder, uint amount);   // event showing the highest bid changed
+    event auctionEnded(address _Hbidd, uint amount);  // event emiting the end of the auction
+
+    constructor(uint _biddingTime,address payable _beneficiary) {     //the smart contract want to be initiated by the beneficiary and set time beginning
+       _beneficiary = _ben;
+       auctionEndTime = block.timestamp + _biddingTime;  // setting the limit of the auction from the initialization of the smart contract.
+
+   }
+
+   function bid() public payable {
+       if(block.timestamp > auctionEndTime) revert('auction Ended!');
+
+       if(msg.value <= Hbid) revert('bid is not high enough') // if the value sent is not high enough the function is reverted
+
+       if(Hbid != 0) {
+           pendingReturns[_Hbidd] += Hbid;
+       }
+
+       
+   }
+}
