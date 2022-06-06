@@ -25,6 +25,11 @@ contract Auction{
        if(Hbid != 0) {
            pendingReturns[_Hbidd] += Hbid;
        }
+              _Hbidd = msg.sender;
+       Hbid = msg.value;
+       emit newHighBid(msg.sender, msg.value);   // if requirements are met we emit the change of the highest bid
+   }
+}
 
        
    }
