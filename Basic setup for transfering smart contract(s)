@@ -1,0 +1,24 @@
+ragma solidity 0.8.7;
+
+contract setOwner{
+    address private owner;
+
+    constructor() {
+        owner = msg.sender;
+    }
+
+    modifier onlyOwner{
+        require(owner == msg.sender);
+        _;
+    }
+
+    function transferToNewOwner(address _newOwner) public onlyOwner payable returns(address) {
+        require(address(_newOwner) != address(0));  //ensures the address is not 0
+        owner = _newOwner;
+        return owner;
+    }
+
+    function getOwner() public view returns(address) {
+        return owner;
+    }
+}
